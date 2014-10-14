@@ -1,9 +1,24 @@
 {
-  "name": "middleman",
+  "name": "middleman-emissary",
   "version": "0.0.0",
+  "homepage": "https://github.com/samme/middleman-emissary",
+  "authors": [
+    "samme <samme@github.com.invalid>"
+  ],
+  "description": "A middleman template",
+  "keywords": [
+    "bower",
+    "coffeescript",
+    "haml",
+    "sass"
+  ],
+  "license": "MIT",
+  "private": true,
   "dependencies": {
-    "jquery": "~2.0",
-    "normalize-scss": "~2.1",
-    "modernizr": "~2.6.2"
+    "flat-colors": "*",
+    "holderjs": "~2.3.2",
+    "modernizr": "~2.8.3",
+    "mrmrs-colors": "~2.0.0",
+    "normalize-scss": "~3.0.1"
   }
 }

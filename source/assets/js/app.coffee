@@ -1,7 +1,14 @@
-#= require jquery/jquery
+#= require "_holderjs-theme"
 
 (($) ->
-  $(window).on('load', () ->
 
-  )
+  $ ($) ->
+    $html = $ "html"
+
+    console.log "Hello!"
+    console.log "jQuery", $.fn.jquery
+
+    $html.addClass "domready"
+    $(window).on "load", -> $html.addClass "loaded"
+
 )(jQuery)

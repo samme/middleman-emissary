@@ -1,25 +1,23 @@
 !!!
-/[if lt IE 7] <html class="no-js lt-ie9 lt-ie8 lt-ie7">
-/ [if IE 7] <html class="no-js lt-ie9 lt-ie8"> <![endif]
-/ [if IE 8] <html class="no-js lt-ie9"><![endif]
 %html.no-js
   %head
-    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %meta{charset: "utf-8"}/
-    %meta{content: "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
-    %meta{content: "width=device-width,initial-scale=1.0", name: "viewport"}/
-    %meta{content: page_description, name: "description"}/
-    %meta{content: page_keywords, name: "keywords"}/
-    %title= page_title
-    = stylesheet_link_tag "all"
-    = javascript_include_tag "vendor/modernizr"
-    = partial "partials/typekit"
-    = partial "partials/analytics"
+    %meta{charset: "utf-8"}
+    %meta{content: "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}
+    %meta{content: "width=device-width,initial-scale=1.0", name: "viewport"}
+    = stylesheet_link_tag "all", type: false
+    = javascript_include_tag "modernizr", type: false
+    = partial "typekit"
+    = partial "analytics"
     = yield_content :head
+    -# %meta{content: page_description, name: "description"}
+    %title= page_title
   %body
     /[if lt IE 8]
-      <haml_loud> partial &quot;partials/compatibility-notice&quot; </haml_loud>
-    = partial "partials/header"
-    = yield
-    = partial "partials/footer"
-    = javascript_include_tag "app"
+      = partial "compatibility-notice"
+    = partial "header"
+    %main(role="main")
+      %h1= page_title
+      = yield
+    = partial "footer"
+    = javascript_include_tag "vendor", "app", type: false
+    = yield_content :end

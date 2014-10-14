@@ -1,0 +1,29 @@
+---
+title: Helpers
+description: Helpers and example output
+helpers:
+  - holder "100%x240/emissary"
+  - holder "320x240/emissary"
+  - lorempixel "320/240"
+  - meta "name", "content"
+  - middleman_version
+  - now "%c"
+  - page_title
+  - placeholdit "320x240"
+  - placekitty "320/240"
+  - placekitty "g/320/240"
+---
+
+
+- data.page.helpers.each do |h|
+  - output = eval h
+  %section
+    %pre
+      %code
+        & = #{h}
+    %pre
+      %samp<
+        :escaped
+          #{output}
+    = output
+

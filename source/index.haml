@@ -2,5 +2,28 @@
 title: Welcome to your new web page!
 ---
 
-.content
-  %p=lorem.paragraph 
+
+- content_for :head do
+  / You can put per-page <meta> & c. here
+
+- content_for :end do
+  / You can put per-page <script>s here
+
+
+= link_to "http://www.bl.uk/onlinegallery/onlineex/apac/other/019xzz000000562u00022000.html" do
+  = image_tag "meerz-fyze.jpg", class: "img"
+
+
+%nav.nav
+  = link_to "Configuration", "/__middleman/config/" , class: "link link--configuration"
+  = link_to "Sitemap"      , "/__middleman/sitemap/", class: "link link--sitemap"
+  = link_to "Guides"       , "//middlemanapp.com"   , class: "link link--guides"
+
+
+:markdown
+
+  Next Steps
+  ----------
+
+  * Edit `bower.json`
+  * Edit `data/site.yml`

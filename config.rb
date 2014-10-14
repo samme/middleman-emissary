@@ -1,88 +1,72 @@
-#Markdown
+# Middleman Config
+#
+# http://middlemanapp.com/advanced/configuration/
+
+require 'uglifier'
+
+set :css_dir,      'assets/css'
+set :fonts_dir,    'assets/fonts'
+set :images_dir,   'assets/img'
+set :js_dir,       'assets/js'
+set :partials_dir, 'partials'
+
 set :markdown_engine, :redcarpet
+set :relative_links, true
+set :sass_assets_paths, ["bower_components"] # necessary?
 
-#Livereload
-activate :livereload
+# Extensions
 
-###
-# Compass
-###
+# https://github.com/porada/middleman-autoprefixer#configuration
+activate :autoprefixer do |config|
+  config.browsers = ['last 2 versions', 'Explorer >= 9']
+end
 
-# Change Compass configuration
-# compass_config do |config|
-#   config.output_style = :compact
-# end
+# https://github.com/plasticine/middleman-imageoptim#usage
+activate :imageoptim
 
-###
-# Page options, layouts, aliases and proxies
-###
-
-# Per-page layout changes:
+# https://github.com/kaiinui/middleman-inliner
+# provides:
 #
-# With no layout
-# page "/path/to/file.html", :layout => false
+# `stylesheet_inline_tag`
+# `javascript_inline_tag`
 #
-# With alternative layout
-# page "/path/to/file.html", :layout => :otherlayout
-#
-# A path which all have the same layout
-# with_layout :admin do
-#   page "/admin/*"
-# end
+# activate :inliner
 
-# Proxy (fake) files
-# page "/this-page-has-no-template.html", :proxy => "/template-file.html" do
-#   @which_fake_page = "Rendering a fake page with a variable"
-# end
-
-# Site Settings
-@analytics_account = false
-@typekit_account = false
-
-# Asset Settings
-set :css_dir, 'assets/css'
-set :js_dir, 'assets/js'
-set :images_dir, 'assets/img'
+# https://github.com/middleman/middleman-livereload#configuration
+activate :livereload, {
+  no_swf: true
+}
 
 # Add bower's directory to sprockets asset path
 after_configuration do
-  @bower_config = JSON.parse(IO.read("#{root}/.bowerrc"))
-  sprockets.append_path File.join "#{root}", @bower_config["directory"]
+  sprockets.append_path File.join "#{root}", "bower_components"
 end
 
 # Build-specific configuration
 configure :build do
-  # For example, change the Compass output style for deployment
-  activate :minify_css
-
-  # Minify Javascript on build
-  activate :minify_javascript
-
-  # Create favicon/touch icon set from source/favicon_base.png
-  activate :favicon_maker
-
-  # Enable cache buster
-  # activate :cache_buster
-
-  # alternative to cache buster
   # activate :asset_hash
-
-  # compress all the things
+  # activate :cache_buster
   # activate :gzip
+  activate :minify_css
+  activate :relative_assets
 
-  # Use relative URLs
-  # activate :relative_assets
+  # https://github.com/paolochiodi/htmlcompressor#usage
+  activate :minify_html, {
+    remove_http_protocol:      false,
+    remove_link_attributes:    true,
+    remove_script_attributes:  true,
+    remove_style_attributes:   true,
+    simple_boolean_attributes: true
+  }
 
-  # Compress PNGs after build
-  # First: gem install middleman-smusher
-  # require "middleman-smusher"
-  # activate :smusher
-
-  # Or use a different image path
-  # set :http_path, "/Content/images/"
+  # https://github.com/lautis/uglifier#usage
+  activate :minify_javascript, compressor: ::Uglifier.new(
+    compress: {
+      drop_console: true
+  })
 end
 
-# ftp deployment configuration. 
+# ftp deployment configuration.
 # activate :deploy do |deploy|
 #   deploy.method = :ftp
 #   deploy.host = "ftp-host"

@@ -1,0 +1,7 @@
+"dependencies": {
+  "console-polyfill": "~0.1.1",
+  "jquery-requestAnimationFrame": "mzgol/jquery-requestAnimationFrame#cleanup+fx",
+  "jquery.transit": "~0.9.12",
+  "mrmrs-colors": "~2.0.0",
+  "flat-colors": "*",
+}
